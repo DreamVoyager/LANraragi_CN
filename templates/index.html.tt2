@@ -198,10 +198,10 @@
 			LRR.toast({
 				heading: '你正在使用默认密码, 这样非常危险',
 				text: '<a href="[% c.url_for("/login") %]">登录</a> 默认密码为 "kamimamita" <a href="[% c.url_for("/config") %]">改变这种状况</a> 立刻.<br/>...或者直接禁用密码! <br/>但是为什么不在之后检查配置选项呢? '
-				// icon: 'warning',
-				// hideAfter: 25000,
-				// closeOnClick: false,
-				// draggable: false,
+				icon: 'warning',
+				hideAfter: 25000,
+				closeOnClick: false,
+				draggable: false,
 			});
 			[% END %]
 
