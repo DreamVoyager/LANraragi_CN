@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-	<title>[% title %] - Logs</title>
+	<title>[% title %] - 日志</title>
 
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -32,17 +32,17 @@
 <body>
 
 	<div class='ido' style='text-align:center'>
-		<h2 class='ih' style='text-align:center'>Application Logs</h2>
+		<h2 class='ih' style='text-align:center'>系统日志</h2>
 
 		<br>
-		You can check LANraragi logs here for debugging purposes.<br>
-		By default, this view only shows the last 100 lines of each logfile, newest lines last. <br><br>
+		您可以在此处查看 LANraragi 日志以进行调试.<br>
+		默认情况下, 此视图仅显示每个日志文件的最后 100 行, 最新行显示在最后. <br><br>
 		<ul>
-			<li>General Logs pertain to the main application. </li>
-			<li>Shinobu Logs correspond to the Background Worker.</li>
-			<li>Plugin Logs are reserved for metadata plugins only. </li>
-			<li>Mojolicious logs won't tell much unless you're running Debug Mode. </li>
-			<li>Redis logs won't be available from here if you're running from source! </li>
+			<li>与主应用程序相关的常规日志. </li>
+			<li>Shinobu日志对应于后台监视进程.</li>
+			<li>插件日志仅针对元数据插件. </li>
+			<li>除非您正在运行调试模式, 否则 Mojolicious 日志不会提供太多信息. </li>
+			<li>如果您从源文件运行, 则无法从此处获取 Redis 日志! </li>
 		</ul>
 		<br><br>
 
@@ -50,7 +50,7 @@
 
 		<div style="margin-right: 5%;float: right;">
 
-			<a id="refresh" href="#" title="Refresh">
+			<a id="refresh" href="#" title="刷新">
 				<i style="padding-right: 10px;" class="fa fa-sync-alt fa-2x"></i>
 			</a>
 
@@ -72,18 +72,18 @@
 
 		<br><br>
 		<span id='buttonstagging'>
-			<input id="show-general" type='button' value='View LANraragi Logs' class='stdbtn'>
+			<input id="show-general" type='button' value='展示 LANraragi 日志' class='stdbtn'>
 
-			<input id="show-shinobu" type='button' value='View Shinobu Logs' class='stdbtn'>
+			<input id="show-shinobu" type='button' value='展示 Shinobu 日志' class='stdbtn'>
 
-			<input id="show-plugins" type='button' value='View Plugin Logs' class='stdbtn'>
+			<input id="show-plugins" type='button' value='展示 Plugin 日志' class='stdbtn'>
 
-			<input id="show-mojo" type='button' value='View Mojolicious Logs' class='stdbtn'>
+			<input id="show-mojo" type='button' value='展示 Mojolicious 日志' class='stdbtn'>
 
-			<input id="show-redis" type='button' value='View Redis Logs' class='stdbtn'>
+			<input id="show-redis" type='button' value='展示 Redis 日志' class='stdbtn'>
 
 			<br><br>
-			<input id='return' class='stdbtn' type='button' value='Return to Library' />
+			<input id='return' class='stdbtn' type='button' value='返回档案库' />
 
 		</span>
 

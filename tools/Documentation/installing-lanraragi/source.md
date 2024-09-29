@@ -40,8 +40,8 @@ All you need to do is clone the git repo somewhere (or download one of [the rele
 I recommend doing this with a brand new Linux user account. (I'm using "koyomi" here):
 
 ```
-git clone -b master http://github.com/Difegue/LANraragi /home/koyomi/lanraragi
-cd /home/koyomi/lanraragi && sudo npm run lanraragi-installer install-full
+git clone -b master http://github.com/Difegue/LANraragi /root/lanraragi
+cd /root/lanraragi && sudo npm run lanraragi-installer install-full
 ```
 
 {% hint style="info"}

@@ -1,62 +1,62 @@
 <tr>
     <td class="option-td">
-        <h2 class="ih"> Thumbnail Directory </h2>
+        <h2 class="ih"> 缩略图目录 </h2>
     </td>
     <td class="config-td">
         <input class="stdinput" style="width:100%" maxlength="255" size="20" value="[% thumbdir %]" name="thumbdir"
-            type="text" [% IF forcedthumbdir %] disabled title="This option is enforced by an environment variable." [%
+            type="text" [% IF forcedthumbdir %] disabled title="该选项由环境变量强制执行." [%
             END %]>
-        <br> Directory where the archive thumbnails will be located. It will be created if it doesn't exist.
-        <br>Make sure the OS user running LANraragi has read/write access to this directory. <br>
+        <br> 存档缩略图所在的目录. 如果它不存在, 它将被创建.
+        <br> 确保运行LANraragi的操作系统用户对该目录具有读/写访问权限. <br>
     </td>
 </tr>
 
 <tr>
     <td class="option-td">
-        <h2 class="ih"> Use high-quality thumbnails for pages </h2>
+        <h2 class="ih"> 为页面使用高质量的缩略图 </h2>
     </td>
     <td class="config-td">
         [% IF hqthumbpages %]
         <input id="hqthumbpages" name="hqthumbpages" class="fa" type="checkbox" checked> [% ELSE %]
         <input id="hqthumbpages" name="hqthumbpages" class="fa" type="checkbox"> [% END %]
         <label for="hqthumbpages">
-            <br>LANraragi generates lower-quality thumbnails for archive pages for performance reasons.
-            <br>If this option is checked, it will instead generate page thumbnails at the same quality as cover
-            thumbnails.
+            <br>出于性能原因, LANraragi会为存档页面生成质量较低的缩略图.
+            <br>如果选中此选项, 它将以与封面缩略图相同的质量生成页面
+            缩略图.
         </label>
     </td>
 </tr>
 
 <tr>
     <td class="option-td">
-        <h2 class="ih"> Use JPEG XL for thumbnails </h2>
+        <h2 class="ih"> 使用JPEG XL的缩略图 </h2>
     </td>
     <td class="config-td">
         [% IF jxlthumbpages %]
         <input id="jxlthumbpages" name="jxlthumbpages" class="fa" type="checkbox" checked> [% ELSE %]
         <input id="jxlthumbpages" name="jxlthumbpages" class="fa" type="checkbox"> [% END %]
         <label for="jxlthumbpages">
-            <br>LANraragi generates JPEG thumbnails for compatibility and performance reasons.
-            <br>If this option is checked, it will instead generate thumbnails using JPEG XL.
+            <br>LANraragi生成JPEG缩略图是出于兼容性和性能的考虑.
+            <br>如果选中此选项, 它将使用JPEG XL生成缩略图.
         </label>
     </td>
 </tr>
 
 <tr>
     <td class="option-td">
-        <input id="genthumb-button" class='stdbtn' type='button' value='Generate Missing Thumbnails' />
+        <input id="genthumb-button" class='stdbtn' type='button' value='生成缺少的缩略图' />
     </td>
     <td class="config-td">
-        Generate Thumbnails for all archives that don't have one yet.
+        为所有还没有缩略图的存档生成缩略图.
     </td>
 </tr>
 
 <tr>
     <td class="option-td">
-        <input id="forcethumb-button" class='stdbtn' type='button' value='Regenerate all Thumbnails' />
+        <input id="forcethumb-button" class='stdbtn' type='button' value='生成所有缩略图' />
     </td>
     <td class="config-td">
-        Regenerate all thumbnails. This might take a while!
+        重新生成所有缩略图, 这可能需要一段时间!
     </td>
 </tr>
 
@@ -64,29 +64,29 @@
 
 <tr>
     <td class="option-td">
-        <h2 class="ih"> Add Timestamp Tag </h2>
+        <h2 class="ih"> 添加时间戳标签 </h2>
     </td>
     <td class="config-td">
         [% IF usedateadded %]
         <input id="usedateadded" name="usedateadded" class="fa" type="checkbox" checked> [% ELSE %]
         <input id="usedateadded" name="usedateadded" class="fa" type="checkbox"> [% END %]
         <label for="usedateadded">
-            <br>If enabled, LANraragi will add the UNIX timestamp of the current time as a tag under the
-            "date_added" namespace to newly added archives.
+            <br>如果启用，LANraragi将把当前时间的UNIX时间戳作为标记 "date_added" 添加到
+             新添加的归档的命名空间中.
         </label>
     </td>
 </tr>
 
 <tr class="datemodified">
     <td class="option-td">
-        <h2 class="ih"> Use "Last modified" Time </h2>
+        <h2 class="ih"> 使用“最后修改”时间 </h2>
     </td>
     <td class="config-td">
         [% IF usedatemodified %]
         <input id="usedatemodified" name="usedatemodified" class="fa" type="checkbox" checked> [% ELSE %]
         <input id="usedatemodified" name="usedatemodified" class="fa" type="checkbox"> [% END %]
         <label for="usedatemodified">
-            <br>Enabling this will use file modified time instead of current time when setting "date_added" timestamps.
+            <br>启用此功能将在设置 "date_added" 时间戳时使用文件修改时间而不是当前时间.
         </label>
     </td>
 </tr>
@@ -95,20 +95,19 @@
 
 <tr>
     <td class="option-td">
-        <h2 class="ih"> Tag Rules </h2>
+        <h2 class="ih"> 标签规则 </h2>
     </td>
     <td class="config-td">
         <input id="tagruleson" name="tagruleson" class="fa" type="checkbox" [% IF tagruleson %]checked[% END %]>
         <br>
         <textarea class="stdinput" size="20" style='width:100%; height:196px' name="tagrules">[% tagrules %]</textarea>
-        <br>When tagging archives using Plugins, the rules specified here will be applied to the tags before saving them
-        to the database.
-        <br>Split rules with linebreaks.
-        <br><b>-tag | tag</b> : removes the tag (like a blacklist)
-        <br><b>-namespace:*</b> : removes all tags within this namespace
-        <br><b>~namespace</b> : strips the namespace from the tags
-        <br><b>tag -> new-tag</b> : replaces one tag
-        <br><b>tag => new-tag</b> : replaces one tag, but use a hash table internally for faster performance. These rules will be executed <i>once</i> after all other rules.
-        <br><b>namespace:* -> new-namespace:*</b> : replaces the namespace with the new one
+        <br>当使用插件标记存档时, 这里指定的规则将在将它们保存到数据库之前应用于标记.
+        <br>用换行符拆分规则.
+        <br><b>-tag | tag</b> : 移除标签 (像黑名单一样)
+        <br><b>-namespace:*</b> : 删除此名称空间中的所有标记
+        <br><b>~namespace</b> : 从标记中剥离名称空间
+        <br><b>tag -> new-tag</b> : 替换一个标签
+        <br><b>tag => new-tag</b> : 替换一个标记, 但在内部使用散列表以获得更快的性能. 这些规则将在所有其他规则之后执行一次.
+        <br><b>namespace:* -> new-namespace:*</b> : 用新名称空间替换名称空间
     </td>
 </tr>

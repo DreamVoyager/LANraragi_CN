@@ -48,7 +48,7 @@ fi
 ADD https://github.com/just-containers/s6-overlay/releases/download/v2.0.0.1/s6-overlay-nobin.tar.gz /tmp/s6-overlay-nobin.tar.gz
 RUN tar -C / -xzf /tmp/s6-overlay-nobin.tar.gz && rm -f /tmp/s6-overlay-nobin.tar.gz
 
-WORKDIR /home/koyomi/lanraragi
+WORKDIR /root/lanraragi
 
 #Copy cpanfile and install script before copying the entire context
 #This allows for Docker cache to preserve cpan dependencies
@@ -73,6 +73,6 @@ COPY /tools/build/docker/s6/legacy-services.d/ /etc/services.d/
 #COPY /tools/build/docker/s6/fix-attrs.d/ /etc/fix-attrs.d/
 
 # Persistent volumes
-VOLUME [ "/home/koyomi/lanraragi/content" ]
-VOLUME [ "/home/koyomi/lanraragi/content/thumb" ]
-VOLUME [ "/home/koyomi/lanraragi/database"]
+VOLUME [ "/root/lanraragi/content" ]
+VOLUME [ "/root/lanraragi/content/thumb" ]
+VOLUME [ "/root/lanraragi/database"]

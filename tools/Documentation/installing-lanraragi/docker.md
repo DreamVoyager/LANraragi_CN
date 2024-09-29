@@ -22,15 +22,15 @@ You can check your Docker version by executing `docker version`.
 Once you're done, execute:
 ```bash
 docker run --name=lanraragi -p 3000:3000 \
---mount type=bind,source=[YOUR_CONTENT_DIRECTORY],target=/home/koyomi/lanraragi/content \
---mount type=bind,source=[YOUR_DATABASE_DIRECTORY],target=/home/koyomi/lanraragi/database \
---mount type=bind,source=[YOUR_THUMBNAIL_DIRECTORY],target=/home/koyomi/lanraragi/content/thumb
+--mount type=bind,source=[YOUR_CONTENT_DIRECTORY],target=/root/lanraragi/content \
+--mount type=bind,source=[YOUR_DATABASE_DIRECTORY],target=/root/lanraragi/database \
+--mount type=bind,source=[YOUR_THUMBNAIL_DIRECTORY],target=/root/lanraragi/content/thumb
 difegue/lanraragi
 ```
 {% hint style="info" %}
 You can tell Docker to auto-restart the LRR container on boot by adding the `--restart always` flag to this command.  
 
-If you need to sideload plugins, consider adding an additional bind mount for the `/home/koyomi/lanraragi/lib/LANraragi/Plugin/Sideloaded` folder.  
+If you need to sideload plugins, consider adding an additional bind mount for the `/root/lanraragi/lib/LANraragi/Plugin/Sideloaded` folder.  
 {% endhint %}
 
 {% hint style="info" %}
@@ -44,9 +44,9 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - [YOUR_CONTENT_DIRECTORY]:/home/koyomi/lanraragi/content
-      - [YOUR_THUMBNAIL_DIRECTORY]:/home/koyomi/lanraragi/content/thumb
-      - [YOUR_DATABASE_DIRECTORY]:/home/koyomi/lanraragi/database
+      - [YOUR_CONTENT_DIRECTORY]:/root/lanraragi/content
+      - [YOUR_THUMBNAIL_DIRECTORY]:/root/lanraragi/content/thumb
+      - [YOUR_DATABASE_DIRECTORY]:/root/lanraragi/database
     restart: unless-stopped
 ```
 {% endhint %}
@@ -61,9 +61,9 @@ You can also mount the database/thumbnail directories to dedicated Docker volume
 docker volume create lrr-database
 docker volume create lrr-thumbnails
 docker run --name=lanraragi -p 3000:3000 \
---mount type=bind,source=[YOUR_CONTENT_DIRECTORY],target=/home/koyomi/lanraragi/content \
---mount source=lrr-database,target=/home/koyomi/lanraragi/database \
---mount source=lrr-thumbnails,target=/home/koyomi/lanraragi/content/thumb \
+--mount type=bind,source=[YOUR_CONTENT_DIRECTORY],target=/root/lanraragi/content \
+--mount source=lrr-database,target=/root/lanraragi/database \
+--mount source=lrr-thumbnails,target=/root/lanraragi/content/thumb \
 difegue/lanraragi
 ```
 
@@ -139,9 +139,9 @@ docker pull difegue/lanraragi
 docker stop lanraragi
 docker rm lanraragi
 docker run --name=lanraragi -p 3000:3000 \
-           --mount type=bind,source=[YOUR_CONTENT_DIRECTORY],target=/home/koyomi/lanraragi/content \
-           --mount type=bind,source=[YOUR_DATABASE_DIRECTORY],target=/home/koyomi/lanraragi/database \
-           --mount type=bind,source=[YOUR_THUMBNAIL_DIRECTORY],target=/home/koyomi/lanraragi/content/thumb
+           --mount type=bind,source=[YOUR_CONTENT_DIRECTORY],target=/root/lanraragi/content \
+           --mount type=bind,source=[YOUR_DATABASE_DIRECTORY],target=/root/lanraragi/database \
+           --mount type=bind,source=[YOUR_THUMBNAIL_DIRECTORY],target=/root/lanraragi/content/thumb
            difegue/lanraragi
 ```
 

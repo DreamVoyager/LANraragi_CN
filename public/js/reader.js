@@ -46,11 +46,11 @@ Reader.initializeAll = function () {
     $(document).on("click.delete-archive", "#delete-archive", () => {
         LRR.closeOverlay();
         LRR.showPopUp({
-            text: "Are you sure you want to delete this archive?",
+            text: "是否确定要删除此档案?",
             icon: "warning",
             showCancelButton: true,
             focusConfirm: false,
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "是的, 删除!",
             reverseButtons: true,
             confirmButtonColor: "#d33",
         }).then((result) => {
@@ -78,7 +78,7 @@ Reader.initializeAll = function () {
         $(e.target).parent().remove();
     });
     $(document).on("click.set-thumbnail", "#set-thumbnail", () => Server.callAPI(`/api/archives/${Reader.id}/thumbnail?page=${Reader.currentPage + 1}`,
-        "PUT", `Successfully set page ${Reader.currentPage + 1} as the thumbnail!`, "Error updating thumbnail!", null));
+        "PUT", `页面 ${Reader.currentPage + 1} 成功设置为缩略图!`, "更新缩略图时出错!", null));
 
     $(document).on("click.thumbnail", ".quick-thumbnail", (e) => {
         LRR.closeOverlay();
@@ -103,10 +103,10 @@ Reader.initializeAll = function () {
     Reader.currentPage = (+params.get("p") || 1) - 1;
 
     // Remove the "new" tag with an api call
-    Server.callAPI(`/api/archives/${Reader.id}/isnew`, "DELETE", null, "Error clearing new flag! Check Logs.", null);
+    Server.callAPI(`/api/archives/${Reader.id}/isnew`, "DELETE", null, "清除新标签时出错! 检查日志.", null);
 
     // Get basic metadata
-    Server.callAPI(`/api/archives/${Reader.id}/metadata`, "GET", null, "Error getting basic archive info!",
+    Server.callAPI(`/api/archives/${Reader.id}/metadata`, "GET", null, "获取基本存档信息时出错!",
         (data) => {
             let { title } = data;
 
@@ -146,7 +146,7 @@ Reader.initializeAll = function () {
 };
 
 Reader.loadImages = function () {
-    Server.callAPI(`/api/archives/${Reader.id}/files?force=${Reader.force}`, "GET", null, "Error getting the archive's imagelist!",
+    Server.callAPI(`/api/archives/${Reader.id}/files?force=${Reader.force}`, "GET", null, "获取档案的图片列表时出错!",
         (data) => {
             Reader.pages = data.pages;
             Reader.maxPage = Reader.pages.length - 1;
@@ -192,7 +192,7 @@ Reader.loadImages = function () {
     ).finally(() => {
         if (Reader.pages === undefined) {
             $("#img").attr("src", new LRR.apiURL("/img/flubbed.gif").toString());
-            $("#display").append("<h2>I flubbed it while trying to open the archive.</h2>");
+            $("#display").append("<h2>在尝试打开档案时出错了.</h2>");
         }
     });
 };
@@ -375,16 +375,16 @@ Reader.checkFiletypeSupport = function (extension) {
     if ((extension === "rar" || extension === "cbr") && !localStorage.rarWarningShown) {
         localStorage.rarWarningShown = true;
         LRR.toast({
-            heading: "This archive seems to be in RAR format!",
-            text: "RAR archives might not work properly in LANraragi depending on how they were made. If you encounter errors while reading, consider converting your archive to zip.",
+            heading: "此档案似乎是 RAR 格式!",
+            text: "RAR 档案可能无法在 LANraragi 中正常工作, 具体取决于它们的制作方式. 如果您在阅读时遇到错误, 请考虑将档案转换为 zip格式.",
             icon: "warning",
             hideAfter: 23000,
         });
     } else if (extension === "epub" && !localStorage.epubWarningShown) {
         localStorage.epubWarningShown = true;
         LRR.toast({
-            heading: "EPUB support in LANraragi is minimal",
-            text: "EPUB books will only show images in the Web Reader, and potentially out of order. If you want text support, consider pairing LANraragi with an <a href='https://sugoi.gitbook.io/lanraragi/advanced-usage/external-readers#generic-opds-readers'>OPDS reader.</a>",
+            heading: "LANraragi 对 EPUB 支持很少",
+            text: "EPUB 书籍在 Web 阅读器中仅显示图像, 并且可能会乱序显示. 如果需要文本支持. 请考虑将 LANraragi 与 <a href='https://sugoi.gitbook.io/lanraragi/advanced-usage/external-readers#generic-opds-readers'>OPDS阅读器使用.</a>",
             icon: "warning",
             hideAfter: 20000,
             closeOnClick: false,
@@ -396,7 +396,7 @@ Reader.checkFiletypeSupport = function (extension) {
 Reader.toggleHelp = function () {
     LRR.toast({
         toastId: "readerHelp",
-        heading: "Navigation Help",
+        heading: "导航帮助",
         text: $("#reader-help").children().first().html(),
         icon: "info",
         hideAfter: 60000,
@@ -525,7 +525,7 @@ Reader.updateProgress = function () {
     if (Reader.trackProgressLocally) {
         localStorage.setItem(`${Reader.id}-reader`, Reader.currentPage + 1);
     } else {
-        Server.callAPI(`/api/archives/${Reader.id}/progress/${Reader.currentPage + 1}`, "PUT", null, "Error updating reading progress!", null);
+        Server.callAPI(`/api/archives/${Reader.id}/progress/${Reader.currentPage + 1}`, "PUT", null, "更新阅读进度时出错!", null);
     }
 };
 
@@ -720,7 +720,7 @@ Reader.initializeArchiveOverlay = function () {
         const thumbnailUrl = new LRR.apiURL(`/api/archives/${Reader.id}/thumbnail?page=${page}`);
         const thumbnail = `
             <div class='${thumbCss} quick-thumbnail' page='${index}' style='display: inline-block; cursor: pointer'>
-                <span class='page-number'>Page ${page}</span>
+                <span class='page-number'>页 ${page}</span>
                 <img src="${thumbnailUrl}" id="${index}_thumb" />
                 <i id="${index}_spinner" class="fa fa-4x fa-circle-notch fa-spin ttspinner" style="display:flex;justify-content: center; align-items: center;"></i>
             </div>`;
@@ -758,7 +758,7 @@ Reader.initializeArchiveOverlay = function () {
                     data.job,
                     false,
                     (data) => thumbProgress(data.notes), // call progress callback one last time to ensure all thumbs are loaded
-                    () => LRR.showErrorToast("The page thumbnailing job didn't conclude properly. Your archive might be corrupted."),
+                    () => LRR.showErrorToast("页面缩略图工作没有正确结束。您的档案可能已损坏."),
                     thumbProgress,
                 ));
             }

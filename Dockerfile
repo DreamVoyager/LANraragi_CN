@@ -1,5 +1,5 @@
 # DOCKER-VERSION 0.3.4
-FROM        alpine:3.20
+FROM        --platform=linux/amd64 alpine:3.20
 LABEL       git="https://github.com/DreamVoyager/LANraragi_CN"
 ARG INSTALL_PARAMETER
 

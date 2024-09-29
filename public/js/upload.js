@@ -29,7 +29,7 @@ Upload.initializeAll = function () {
                                 <a href="#" id="${data.result.job}-name" title="${data.result.name}">${data.result.name}</a>
                               </td>
                               <td><i id="${data.result.job}-icon" class='fa fa-spinner fa-spin' style='margin-left:20px; margin-right: 10px;'></i>
-                                <a href="#" id="${data.result.job}-link">Processing file... (Job #${data.result.job})</a>
+                                <a href="#" id="${data.result.job}-link">处理文件中... (任务 #${data.result.job})</a>
                               </td>
                           </tr>`;
             }
@@ -82,7 +82,7 @@ Upload.updateUploadCounters = function () {
     } else {
         icon = "fa fa-spinner fa-spin";
     }
-    $("#progressTotal").html(`<i class="${icon}"></i> Total:${completedArchives + failedArchives}/${totalUploads}`);
+    $("#progressTotal").html(`<i class="${icon}"></i> 总数量:${completedArchives + failedArchives}/${totalUploads}`);
 
     // At the end of the upload job, dump the search cache!
     if (processingArchives === 0) { Server.invalidateCache(); }
@@ -99,11 +99,11 @@ Upload.handleCompletedUpload = function (jobID, d) {
     }
 
     if (d.result.success) {
-        $(`#${jobID}-link`).html(`Click here to edit metadata.<br>(${d.result.message})`);
+        $(`#${jobID}-link`).html(`单击此处编辑元数据.<br>(${d.result.message})`);
         $(`#${jobID}-icon`).attr("class", "fa fa-check-circle");
         completedArchives += 1;
     } else {
-        $(`#${jobID}-link`).html(`Error while processing archive.<br>(${d.result.message})`);
+        $(`#${jobID}-link`).html(`处理档案时出错.<br>(${d.result.message})`);
         $(`#${jobID}-icon`).attr("class", "fa fa-exclamation-circle");
         failedArchives += 1;
     }
@@ -113,7 +113,7 @@ Upload.handleCompletedUpload = function (jobID, d) {
 };
 
 Upload.handleFailedUpload = function (jobID, d) {
-    $(`#${jobID}-link`).html(`Error while processing file.<br>(${d})`);
+    $(`#${jobID}-link`).html(`处理文件时出错.<br>(${d})`);
     $(`#${jobID}-icon`).attr("class", "fa fa-exclamation-circle");
 
     failedArchives += 1;
@@ -147,7 +147,7 @@ Upload.downloadUrl = function () {
                                     <a href="#" id="${data.job}-name" title="${data.url}">${data.url}</a>
                                 </td>
                                 <td><i id="${data.job}-icon" class='fa fa-spinner fa-spin' style='margin-left:20px; margin-right: 10px;'></i>
-                                <a href="#" id="${data.job}-link">Downloading file... (Job #${data.job})</a>
+                                <a href="#" id="${data.job}-link">下载文件中... (Job #${data.job})</a>
                                 </td>
                             </tr>`;
 
@@ -168,7 +168,7 @@ Upload.downloadUrl = function () {
                     throw new Error(data.message);
                 }
             })
-            .catch((error) => LRR.showErrorToast("Error while adding download job", error));
+            .catch((error) => LRR.showErrorToast("添加下载任务时出错", error));
     });
 };
 

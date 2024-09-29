@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-	<title>LANraragi Server Error</title>
+	<title>LANraragi 服务错误</title>
 
 	<meta name="viewport" content="width=device-width" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -17,13 +17,13 @@
 
 	<img src='/img/flubbed.gif' />
 	<br />
-	<h2>I flubbed it while rendering your page!</h2>
-	It's likely there's a bug with the server at this point.<br />
+	<h2>在渲染页面时出错了!</h2>
+	此时服务器可能存在 bug.<br />
 	<p>
 		<%= $exception->message %>
 	</p>
 
-	<h3>Some more info below if available:</h3>
+	<h3>下面提供了更多信息:</h3>
 	<pre><%= dumper $snapshot %></pre>
 
 </body>

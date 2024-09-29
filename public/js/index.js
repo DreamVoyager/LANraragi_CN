@@ -74,10 +74,10 @@ Index.initializeAll = function () {
                 Index.updateCarousel();
             },
             items: {
-                ondeck: { name: "On Deck", icon: "fas fa-book-reader" },
-                random: { name: "Randomly Picked", icon: "fas fa-random" },
-                inbox: { name: "New Archives", icon: "fas fa-envelope-open-text" },
-                untagged: { name: "Untagged Archives", icon: "fas fa-edit" },
+                ondeck: { name: "看板", icon: "fas fa-book-reader" },
+                random: { name: "随机", icon: "fas fa-random" },
+                inbox: { name: "新的档案", icon: "fas fa-envelope-open-text" },
+                untagged: { name: "未标记的档案", icon: "fas fa-edit" },
             },
         }),
     });
@@ -87,15 +87,15 @@ Index.initializeAll = function () {
         localStorage.sawContextMenuToast = true;
 
         LRR.toast({
-            heading: `Welcome to LANraragi ${Index.serverVersion}!`,
-            text: "If you want to perform advanced operations on an archive, remember to just right-click its name. Happy reading!",
+            heading: `欢迎使用 LANraragi ${Index.serverVersion}!`,
+            text: "如果要对存档执行高级操作, 请记住只需右键单击其名称即可. 祝您阅读愉快!",
             icon: "info",
             hideAfter: 13000,
         });
     }
 
     // Get some info from the server: version, debug mode, local progress
-    Server.callAPI("/api/info", "GET", null, "Error getting basic server info!",
+    Server.callAPI("/api/info", "GET", null, "获取基本服务信息时出错!",
         (data) => {
             Index.serverVersion = data.version;
             Index.debugMode = data.debug_mode === "1";
@@ -108,8 +108,8 @@ Index.initializeAll = function () {
                 Index.fetchChangelog();
             } else {
                 LRR.toast({
-                    heading: "<i class=\"fas fa-bug\"></i> You're running in Debug Mode!",
-                    text: `Advanced server statistics can be viewed <a href="${new LRR.apiURL("/debug")}">here.</a>`,
+                    heading: "<i class=\"fas fa-bug\"></i> 您正在调试模式下运行!",
+                    text: `可以查看高级服务统计信息点击 <a href="${new LRR.apiURL("/debug")}">这里.</a>`,
                     icon: "warning",
                 });
             }
@@ -221,11 +221,11 @@ Index.toggleCategory = function (button) {
  */
 Index.promptCustomColumn = function (column) {
     LRR.showPopUp({
-        title: "Enter a tag namespace for this column",
-        text: "Enter a full namespace without the colon, e.g \"artist\".\nIf you have multiple tags with the same namespace, only the last one will be shown in the column.",
+        title: "输入此列的标签命名空间",
+        text: "输入不带冒号的完整命名空间, 例如 \"artist\".\n如果您有多个具有相同命名空间的标签，则列中只会显示最后一个标签.",
         input: "text",
         inputValue: localStorage.getItem(`customColumn${column}`),
-        inputPlaceholder: "Tag namespace",
+        inputPlaceholder: "标签命名空间",
         inputAttributes: {
             autocapitalize: "off",
         },
@@ -233,7 +233,7 @@ Index.promptCustomColumn = function (column) {
         reverseButtons: true,
         inputValidator: (value) => {
             if (!value) {
-                return "Please enter a namespace.";
+                return "请输入命名空间.";
             }
             return undefined;
         },
@@ -416,8 +416,8 @@ Index.checkVersion = function () {
 
             if (latestVersion > currentVersion) {
                 LRR.toast({
-                    heading: `A new version of LANraragi (${data.tag_name}) is available !`,
-                    text: `<a href="${data.html_url}">Click here to check it out.</a>`,
+                    heading: `发现一个 LANraragi (${data.tag_name}) 新版本 !`,
+                    text: `<a href="${data.html_url}">点击这里查看.</a>`,
                     icon: "info",
                     closeOnClick: false,
                     draggable: false,
@@ -426,7 +426,7 @@ Index.checkVersion = function () {
             }
         })
         // eslint-disable-next-line no-console
-        .catch((error) => console.log("Error checking latest version.", error));
+        .catch((error) => console.log("检查最新版本时出错.", error));
 };
 
 /**
@@ -437,7 +437,7 @@ Index.fetchChangelog = function () {
         localStorage.lrrVersion = Index.serverVersion;
 
         fetch("https://api.github.com/repos/difegue/lanraragi/releases/latest", { method: "GET" })
-            .then((response) => (response.ok ? response.json() : { error: "Response was not OK" }))
+            .then((response) => (response.ok ? response.json() : { error: "响应不正常" }))
             .then((data) => {
                 if (data.error) throw new Error(data.error);
 
@@ -458,7 +458,7 @@ Index.fetchChangelog = function () {
                     $("#updateOverlay").css("display", "block");
                 });
             })
-            .catch((error) => { LRR.showErrorToast("Error getting changelog for new version", error); });
+            .catch((error) => { LRR.showErrorToast("获取新版本的更新日志时出错", error); });
     }
 };
 
@@ -468,7 +468,7 @@ Index.fetchChangelog = function () {
  * @returns Categories
  */
 Index.loadContextMenuCategories = function (id) {
-    return Server.callAPI(`/api/archives/${id}/categories`, "GET", null, `Error finding categories for ${id}!`,
+    return Server.callAPI(`/api/archives/${id}/categories`, "GET", null, `查找 ${id} 的分类时出错 !`,
         (data) => {
             const items = {};
 
@@ -478,7 +478,7 @@ Index.loadContextMenuCategories = function (id) {
             }
 
             if (Object.keys(items).length === 0) {
-                items.noop = { name: "This archive isn't in any category.", icon: "far fa-sad-cry" };
+                items.noop = { name: "此档案不属于任何分类.", icon: "far fa-sad-cry" };
             }
 
             return items;
@@ -492,7 +492,7 @@ Index.loadContextMenuCategories = function (id) {
  * @param {*} id The ID of the archive to check
  * @returns Categories
  */
-Index.loadContextMenuCategories = (catList, id) => Server.callAPI(`/api/archives/${id}/categories`, "GET", null, `Error finding categories for ${id}!`,
+Index.loadContextMenuCategories = (catList, id) => Server.callAPI(`/api/archives/${id}/categories`, "GET", null, `查找 ${id} 的分类时出错 !`,
     (data) => {
         const items = {};
 
@@ -517,7 +517,7 @@ Index.loadContextMenuCategories = (catList, id) => Server.callAPI(`/api/archives
         }
 
         if (Object.keys(items).length === 0) {
-            items.noop = { name: "No Categories yet...", icon: "far fa-sad-cry" };
+            items.noop = { name: "无分类...", icon: "far fa-sad-cry" };
         }
 
         return items;
@@ -537,11 +537,11 @@ Index.handleContextMenu = function (option, id) {
         break;
     case "delete":
         LRR.showPopUp({
-            text: "Are you sure you want to delete this archive?",
+            text: "是否确实要删除此档案?",
             icon: "warning",
             showCancelButton: true,
             focusConfirm: false,
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "是的, 删除!",
             reverseButtons: true,
             confirmButtonColor: "#d33",
         }).then((result) => {
@@ -566,7 +566,7 @@ Index.handleContextMenu = function (option, id) {
  */
 Index.loadTagSuggestions = function () {
     // Query the tag cloud API to get the most used tags.
-    Server.callAPI("/api/database/stats?minweight=2", "GET", null, "Couldn't load tag suggestions",
+    Server.callAPI("/api/database/stats?minweight=2", "GET", null, "无法加载建议的标签",
         (data) => {
             // Get namespaces objects in the data array to fill the namespace-sortby combobox
             const namespacesSet = new Set(data.map((element) => (element.namespace === "parody" ? "series" : element.namespace)));
@@ -609,7 +609,7 @@ Index.loadTagSuggestions = function () {
  * Query the category API to build the filter buttons.
  */
 Index.loadCategories = function () {
-    Server.callAPI("/api/categories", "GET", null, "Couldn't load categories",
+    Server.callAPI("/api/categories", "GET", null, "无法加载分类",
         (data) => {
             // Sort by pinned + alpha
             // Pinned categories are shown at the beginning
@@ -629,7 +629,7 @@ Index.loadCategories = function () {
                 const div = `<div style='display:inline-block'>
                     <input class='favtag-btn ${((category.id === Index.selectedCategory) ? "toggled" : "")}' 
                             type='button' id='${category.id}' value='${catName}' 
-                            onclick='Index.toggleCategory(this)' title='Click here to display the archives contained in this category.'/>
+                            onclick='Index.toggleCategory(this)' title='单击此处显示此分类中包含的档案.'/>
                 </div>`;
 
                 html += div;
@@ -670,8 +670,8 @@ Index.migrateProgress = function () {
     const localProgressKeys = Object.keys(localStorage).filter((x) => x.endsWith("-reader")).map((x) => x.slice(0, -7));
     if (localProgressKeys.length > 0) {
         LRR.toast({
-            heading: "Your Reading Progression is now saved on the server!",
-            text: "You seem to have some local progression hanging around -- Please wait warmly while we migrate it to the server for you. ☕",
+            heading: "您的阅读进度现在已保存在服务器上!",
+            text: "您似乎有一些本地阅读进展-- 请耐心等待我们为您将其迁移到服务器. ☕",
             icon: "info",
             hideAfter: 23000,
         });
@@ -688,7 +688,7 @@ Index.migrateProgress = function () {
                         && data !== undefined
                         && data !== null
                         && progress > data.progress) {
-                        Server.callAPI(`api/archives/${id}/progress/${progress}?force=1`, "PUT", null, "Error updating reading progress!", null);
+                        Server.callAPI(`api/archives/${id}/progress/${progress}?force=1`, "PUT", null, "更新阅读进度时出错!", null);
                     }
 
                     // Clear out localStorage'd progress
@@ -698,14 +698,14 @@ Index.migrateProgress = function () {
         });
 
         Promise.all(promises).then(() => LRR.toast({
-            heading: "Reading Progression has been fully migrated! 🎉",
-            text: "You'll have to reopen archives in the Reader to see the migrated progression values.",
+            heading: "阅读进度已完全迁移! 🎉",
+            text: "您必须在阅读中重新打开档案才能看到迁移的进度.",
             icon: "success",
             hideAfter: 13000,
         }));
     } else {
         // eslint-disable-next-line no-console
-        console.log("No local reading progression to migrate");
+        console.log("无需迁移本地阅读进度");
     }
 };
 

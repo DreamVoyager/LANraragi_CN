@@ -7,7 +7,7 @@ function _get_baseurl_cookie() {
     let cookies = document.cookie;
     val = cookies.split('; ').find((r) => r.startsWith("lrr_baseurl="))?.split("=")[1];
     if (val === undefined) {
-        console.warn("lrr_baseurl cookie undefined, must be set by backend");
+        console.warn("lrr公共URL cookie 未知的, 必须由后端设置");
         val = "";
     }
     return val;
@@ -33,7 +33,7 @@ LRR.apiURL = class {
         }
         this.load_url = load_url;
         if (!this.load_url.startsWith("/")) {
-            console.trace("passed non-absolute URL to apiURL");
+            console.trace("通过非绝对路径URL访问apiURL");
             this.load_url = "/" + this.load_url;
         }
     }

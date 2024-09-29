@@ -46,6 +46,6 @@ RUN echo "koyomi ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/koyomi && chmod 0440 
 
 # We're done, since this is not a production build.
 
-WORKDIR /home/koyomi/lanraragi
+WORKDIR /root/lanraragi
 USER koyomi
 CMD ["npm", "run", "dev-server"]
