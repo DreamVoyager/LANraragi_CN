@@ -2,6 +2,7 @@ package LANraragi::Model::Upload;
 
 use strict;
 use warnings;
+use utf8;
 
 use Redis;
 use URI::Escape;
@@ -39,7 +40,7 @@ sub handle_incoming_file {
 
     # Check if file is an archive
     unless ( is_archive($filename) ) {
-        return ( 0, "deadbeef", $filename, "Unsupported File Extension ($filename)" );
+        return ( 0, "deadbeef", $filename, "不支持的文件扩展名 ($filename)" );
     }
 
     # Compute an ID here
@@ -64,11 +65,11 @@ sub handle_incoming_file {
         unlink $tempfile;
 
         # The file already exists
-        my $suffix = " Enable replace duplicated archive in config to replace old ones.";
+        my $suffix = " 在配置中启用\"替换重复档案\"以替换旧的档案.";
         my $msg =
           $isdupe
-          ? "This file already exists in the Library." . $suffix
-          : "A file with the same name is present in the Library." . $suffix;
+          ? "此文件已存在于档案库中." . $suffix
+          : "档案库中存在同名的文件." . $suffix;
 
         return ( 0, $id, $filename, $msg );
     }
@@ -110,15 +111,15 @@ sub handle_incoming_file {
 
     # Move the file to the content folder.
     # Move to a .upload first in case copy to the content folder takes a while...
-    move( $tempfile, $output_file . ".upload" ) or return ( 0, $id, $name, "The file couldn't be moved to your content folder: $!" );
+    move( $tempfile, $output_file . ".upload" ) or return ( 0, $id, $name, "无法将文件移动到您的内容文件夹: $!" );
 
     # Then rename inside the content folder itself to proc Shinobu.
-    move( $output_file . ".upload", $output_file ) or  return ( 0, $id, $name, "The file couldn't be renamed in your content folder: $!" );
+    move( $output_file . ".upload", $output_file ) or  return ( 0, $id, $name, "无法在文件夹中重命名文件: $!" );
 
     # If the move didn't signal an error, but still doesn't exist, something is quite spooky indeed!
     # Really funky permissions that prevents viewing folder contents?
     unless ( -e $output_file ) {
-        return ( 0, $id, $name, "The file couldn't be moved to your content folder!" );
+        return ( 0, $id, $name, "无法将文件移动到您的内容文件夹!" );
     }
 
     # Now that the file has been copied, we can add the timestamp tag and calculate pagecount.
@@ -132,7 +133,7 @@ sub handle_incoming_file {
     $logger->debug("Running autoplugin on newly uploaded file $id...");
 
     my ( $succ, $fail, $addedtags, $newtitle ) = LANraragi::Model::Plugins::exec_enabled_plugins_on_file($id);
-    my $successmsg = "$succ Plugins used successfully, $fail Plugins failed, $addedtags tags added. ";
+    my $successmsg = "$succ 个插件成功使用, $fail 个插件使用失败, $addedtags 个标签添加. ";
 
     if ( $newtitle ne "" ) {
         $name = $newtitle;
@@ -145,9 +146,9 @@ sub handle_incoming_file {
         if ($catsucc) {
             my %category = LANraragi::Model::Category::get_category($catid);
             my $catname  = $category{name};
-            $successmsg .= "Added to Category '$catname'!";
+            $successmsg .= "已添加至 '$catname' 分类!";
         } else {
-            $successmsg .= "Couldn't add to Category: $caterr";
+            $successmsg .= "无法添加到分类: $caterr";
         }
     }
 

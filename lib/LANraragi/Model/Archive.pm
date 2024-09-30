@@ -165,7 +165,7 @@ sub generate_page_thumbnails {
             json => {
                 operation => "generate_page_thumbnails",
                 success   => 1,
-                message   => "No job queued, all thumbnails already exist."
+                message   => "没有任务在运行, 所有缩略图都已存在."
             },
             status => 200    # 200 OK
         );
@@ -327,7 +327,7 @@ sub serve_page {
         }
 
     } else {
-        render_api_response( $self, "serve_page", "This API cannot render files outside of the temporary folder." );
+        render_api_response( $self, "serve_page", "此API无法展示临时文件夹之外的文件." );
     }
 }
 
@@ -335,7 +335,7 @@ sub update_metadata {
     my ( $id, $title, $tags, $summary ) = @_;
 
     unless ( defined $title || defined $tags ) {
-        return "No metadata parameters (Please supply title, tags or summary)";
+        return "无元数据参数 (请提供标题, 标签或摘要)";
     }
 
     # Clean up the user's inputs and encode them.

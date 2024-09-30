@@ -42,7 +42,7 @@ Category.addNewCategory = function (isDynamic) {
             const searchtag = isDynamic ? "language:english" : "";
 
             // Make an API request to create category, search is empty -> static, otherwise dynamic
-            Server.callAPI(`/api/categories?name=${result.value}&search=${searchtag}`, "PUT", `Category "${result.value}" created!`, "创建分类时出错:",
+            Server.callAPI(`/api/categories?name=${result.value}&search=${searchtag}`, "PUT", `创建 "${result.value}" 分类成功!`, "创建分类时出错:",
                 (data) => {
                     // Reload categories and select the newly created ID
                     Category.loadCategories(data.category_id);
@@ -169,6 +169,7 @@ Category.deleteSelectedCategory = function () {
         showCancelButton: true,
         focusConfirm: false,
         confirmButtonText: "是的, 删除!",
+        cancelButtonText: "取消",
         reverseButtons: true,
         confirmButtonColor: "#d33",
     }).then((result) => {

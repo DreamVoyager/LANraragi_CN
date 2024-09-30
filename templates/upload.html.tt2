@@ -46,7 +46,7 @@
 
 			<div class="left-column">
 
-				Add uploaded files to category:
+				将上传的文件添加到分类:
 				<select id="category" class="favtag-btn">
 					<option selected value=""> -- 无分类 -- </option>
 					[% FOREACH categories %]
@@ -72,7 +72,7 @@
 				即使您关闭此窗口，下载任务也会继续进行!<br><br>
 
 				输入您的 URL(以换行符分隔), 然后单击下载按钮. <br>
-				如果 <a href="[% c.url_for("/config/plugins") %]>下载插件</a> 与 URL 兼容，则会自动
+				如果 <a href="[% c.url_for("/config/plugins") %]">下载插件</a> 与 URL 兼容，则会自动
 				处理.<br><br>
 
 				<label for="download_url">要下载的 URL:</label>

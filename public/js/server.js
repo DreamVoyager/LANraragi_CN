@@ -116,7 +116,7 @@ Server.checkJobStatus = function (jobId, useDetail, callback, failureCallback, p
                 callback(data);
             }
         })
-        .catch((error) => { LRR.showErrorToast("检查Minion工作状态时出错", error); failureCallback(error); });
+        .catch((error) => { LRR.showErrorToast("检查Minion任务状态时出错", error); failureCallback(error); });
 };
 
 /**
@@ -213,6 +213,7 @@ Server.dropDatabase = function () {
         showCancelButton: true,
         focusConfirm: false,
         confirmButtonText: "是的, 我确定!",
+        cancelButtonText: "取消",
         reverseButtons: true,
         confirmButtonColor: "#d33",
     }).then((result) => {
@@ -250,7 +251,7 @@ Server.cleanDatabase = function () {
 Server.regenerateThumbnails = function (force) {
     const forceparam = force ? 1 : 0;
     Server.callAPI(`/api/regen_thumbs?force=${forceparam}`, "POST",
-        "重新生成缩略图工作排队正在排队！请继续关注更新或查看 Minion 控制台.",
+        "重新生成缩略图的任务正在排队！请继续关注更新或查看 Minion 控制台.",
         "将命令发送到 Minion 时出错:",
         (data) => {
             // Disable the buttons to avoid accidental double-clicks.

@@ -1,5 +1,6 @@
 package LANraragi::Controller::Config;
 use Mojo::Base 'Mojolicious::Controller';
+use utf8;
 
 use LANraragi::Utils::Generic    qw(generate_themes_header);
 use LANraragi::Utils::String     qw(trim trim_CRLF);
@@ -112,7 +113,7 @@ sub save_config {
     # Password check
     if ( $self->req->param('newpassword') ne $self->req->param('newpassword2') ) {
         $success   = 0;
-        $errormess = "Mismatched passwords.";
+        $errormess = "密码不正确.";
     }
 
     # Numbers only in fields w. numbers
@@ -120,7 +121,7 @@ sub save_config {
         || $confhash{readerquality} =~ /\D+/
         || $confhash{sizethreshold} =~ /\D+/ ) {
         $success   = 0;
-        $errormess = "Invalid characters.";
+        $errormess = "无效字符.";
     }
 
     #Did all the checks pass ?

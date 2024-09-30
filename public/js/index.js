@@ -322,33 +322,33 @@ Index.updateCarousel = function (e) {
     switch (localStorage.carouselType) {
     case "random":
         $("#carousel-icon")[0].classList = "fas fa-random";
-        $("#carousel-title").text("Randomly Picked");
+        $("#carousel-title").text("随机");
         endpoint = `/api/search/random?filter=${IndexTable.currentSearch}&category=${Index.selectedCategory}&count=15`;
         break;
     case "inbox":
         $("#carousel-icon")[0].classList = "fas fa-envelope-open-text";
-        $("#carousel-title").text("New Archives");
+        $("#carousel-title").text("新档案");
         endpoint = `/api/search?filter=${IndexTable.currentSearch}&category=${Index.selectedCategory}&newonly=true&sortby=date_added&order=desc&start=-1`;
         break;
     case "untagged":
         $("#carousel-icon")[0].classList = "fas fa-edit";
-        $("#carousel-title").text("Untagged Archives");
+        $("#carousel-title").text("未标记的档案");
         endpoint = `/api/search?filter=${IndexTable.currentSearch}&category=${Index.selectedCategory}&untaggedonly=true&sortby=date_added&order=desc&start=-1`;
         break;
     case "ondeck":
         $("#carousel-icon")[0].classList = "fas fa-book-reader";
-        $("#carousel-title").text("On Deck");
+        $("#carousel-title").text("看板");
         endpoint = `/api/search?filter=${IndexTable.currentSearch}&sortby=lastread`;
         break;
     default:
         $("#carousel-icon")[0].classList = "fas fa-pastafarianism";
-        $("#carousel-title").text("What???");
+        $("#carousel-title").text("什么???");
         endpoint = `/api/search?filter=${IndexTable.currentSearch}&category=${Index.selectedCategory}`;
         break;
     }
 
     if (Index.carouselInitialized) {
-        Server.callAPI(endpoint, "GET", null, "Error getting carousel data!",
+        Server.callAPI(endpoint, "GET", null, "获取轮播数据时出错!",
             (results) => {
                 Index.swiper.virtual.removeAllSlides();
                 const slides = results.data
@@ -542,6 +542,7 @@ Index.handleContextMenu = function (option, id) {
             showCancelButton: true,
             focusConfirm: false,
             confirmButtonText: "是的, 删除!",
+            cancelButtonText: "取消",
             reverseButtons: true,
             confirmButtonColor: "#d33",
         }).then((result) => {

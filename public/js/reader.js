@@ -51,6 +51,7 @@ Reader.initializeAll = function () {
             showCancelButton: true,
             focusConfirm: false,
             confirmButtonText: "是的, 删除!",
+            cancelButtonText: "取消",
             reverseButtons: true,
             confirmButtonColor: "#d33",
         }).then((result) => {
@@ -758,7 +759,7 @@ Reader.initializeArchiveOverlay = function () {
                     data.job,
                     false,
                     (data) => thumbProgress(data.notes), // call progress callback one last time to ensure all thumbs are loaded
-                    () => LRR.showErrorToast("页面缩略图工作没有正确结束。您的档案可能已损坏."),
+                    () => LRR.showErrorToast("页面缩略图任务没有正确结束。您的档案可能已损坏."),
                     thumbProgress,
                 ));
             }

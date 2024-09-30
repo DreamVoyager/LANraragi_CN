@@ -149,7 +149,7 @@ sub exec_script_plugin {
             return ( error => $e );
         }
     }
-    return ( error => "Plugin doesn't implement run_script despite having a 'script' type." );
+    return ( error => "尽管具有脚本类型, 但插件没有实现运行脚本." );
 }
 
 sub exec_download_plugin {
@@ -185,9 +185,9 @@ sub exec_download_plugin {
             return \%infohash;
         }
 
-        return ( error => "Plugin ran to completion but didn't provide a final URL for us to download." );
+        return ( error => "插件运行, 但没有提供一个最终的URL供我们下载." );
     }
-    return ( error => "Plugin doesn't implement provide_url despite having a 'download' type." );
+    return ( error => "尽管具有下载类型, 但插件不实现下载." );
 }
 
 # Execute a specified plugin on a file, described through its Redis ID.
@@ -200,11 +200,11 @@ sub exec_metadata_plugin {
     my $logger = get_logger( "Plugin System", "lanraragi" );
 
     if ( !$id ) {
-        return ( error => "Tried to call a metadata plugin without providing an id." );
+        return ( error => "尝试在不提供 ID 的情况下调用元数据插件." );
     }
 
     if ( !$plugin->can('get_tags') ) {
-        return ( error => "Plugin doesn't implement get_tags despite having a 'metadata' type." );
+        return ( error => "尽管具有元数据类型，但插件不实现获取标签." );
     }
 
     my $redis = LANraragi::Model::Config->get_redis;

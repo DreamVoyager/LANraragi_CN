@@ -164,6 +164,7 @@ Edit.deleteArchive = function () {
         showCancelButton: true,
         focusConfirm: false,
         confirmButtonText: "是的, 删除!",
+        cancelButtonText: "取消",
         reverseButtons: true,
         confirmButtonColor: "#d33",
     }).then((result) => {

@@ -336,7 +336,7 @@ LRR.showPopUp = function (c) {
     }
 
     if (c.icon === "warning" && !c.title) {
-        c.title = "This is a destructive operation!";
+        c.title = "这是一个破坏性的操作!";
     }
     return window.Swal.fire(c);
 };

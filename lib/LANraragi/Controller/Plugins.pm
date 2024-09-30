@@ -1,5 +1,6 @@
 package LANraragi::Controller::Plugins;
 use Mojo::Base 'Mojolicious::Controller';
+use utf8;
 
 use Redis;
 use Encode;
@@ -164,7 +165,7 @@ sub process_upload {
         if ( $filetext =~ /package LANraragi::Plugin::(Login|Metadata|Scripts|Download)::/ ) {
             $plugintype = $1;
         } else {
-            my $errormess = "Could not find a valid plugin package type in the plugin \"$filename\"!";
+            my $errormess = "在插件中找不到有效的包类型 \"$filename\"!";
             $logger->error($errormess);
 
             $self->render(
@@ -186,7 +187,7 @@ sub process_upload {
         
         my $output_file = $dir . $filename;
 
-        $logger->info("Uploading new plugin $filename to $output_file ...");
+        $logger->info("上传新插件 $filename 到 $output_file ...");
 
         #Delete module if it already exists
         if ( -e $output_file ) {
@@ -209,7 +210,7 @@ sub process_upload {
         };
 
         if ($@) {
-            $logger->error("Could not instantiate plugin at namespace $pluginclass!");
+            $logger->error("无法在命名空间实例化插件 $pluginclass!");
             $logger->error($@);
 
             # Cleanup this shameful attempt
@@ -221,9 +222,9 @@ sub process_upload {
                     operation => "upload_plugin",
                     name      => $file->filename,
                     success   => 0,
-                    error     => "Could not load namespace $pluginclass! "
-                      . "Your Plugin might not be compiling properly. <br/>"
-                      . "Here's an error log: <pre>$@</pre>"
+                    error     => "无法加载命名空间 $pluginclass! "
+                      . "您的插件可能无法正确编译. <br/>"
+                      . "这是一个错误日志: <pre>$@</pre>"
                 }
             );
 
@@ -248,7 +249,7 @@ sub process_upload {
                 operation => "upload_plugin",
                 name      => $file->filename,
                 success   => 0,
-                error     => "This file isn't a plugin - " . "Please upload a Perl Module (.pm) file."
+                error     => "此文件不是插件 - " . "请上传Perl(.pm)格式的文件."
             }
         );
     }

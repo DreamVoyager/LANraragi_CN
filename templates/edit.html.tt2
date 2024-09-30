@@ -97,7 +97,7 @@
 
 					<tr>
 						<td style='text-align:left; width:100px; vertical-align:top'>从插件导入标签 : <br />
-							<input type='button' name='tag_import' value='Help' id="show-help" class='stdbtn'
+							<input type='button' name='tag_import' value='帮助' id="show-help" class='stdbtn'
 								style='min-width:90px;'></input>
 						</td>
 						<td id="plugin_table" style="text-align: left">
@@ -109,7 +109,7 @@
 								[% END %]
 							</select>
 
-							<input class='stdbtn' type='button' style="min-width:90px;" id="run-plugin" value='Go!' />
+							<input class='stdbtn' type='button' style="min-width:90px;" id="run-plugin" value='开始!' />
 							<br />
 
 							<span id="arg_label">[% plugins.first.oneshot_arg %] :</span> <br />

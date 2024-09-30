@@ -113,7 +113,7 @@
 				<input id='save' class='stdbtn' type='button' value='保存插件配置' />
 				<span id="plugin-upload" class='stdbtn fileinput-button'
 					style="margin-bottom: -10px; font-weight:normal">
-					<span style="position:absolute; top:5px; left:25%">上传插件</span>
+					<span style="position:absolute; top:5px; left:35%">上传插件</span>
 					<input type='file' name='file' multiple id='fileupload'>
 				</span>
 				<input id='return' class='stdbtn' type='button' value='返回档案库' />
@@ -142,14 +142,14 @@
 	<div style="float:right; text-align: right;">
 
 		[% IF plugin.type == "metadata" %]
-		<h1 class="ih" style="display:inline"> Run Automatically: </h1>
+		<h1 class="ih" style="display:inline"> 自动运行: </h1>
 		<input id="[% plugin.namespace %]" name="[% plugin.namespace %]" class="fa" type="checkbox" [% IF plugin.enabled
 			%] checked [% END %]>
 		<br />
 		[% END %]
 
 		[% IF plugin.login_from %]
-		<i class="fa fa-plug" aria-hidden="true"></i> This plugin depends on the login plugin "[% plugin.login_from %]".
+		<i class="fa fa-plug" aria-hidden="true"></i> 此插件依赖于登录插件 "[% plugin.login_from %]".
 		[% END %]
 
 	</div>
@@ -157,7 +157,7 @@
 	<br />
 
 	[% IF plugin.type == "download" %]
-	<pre title="This plugin will trigger on URLs matching this regex!">	[% plugin.url_regex %]</pre>
+	<pre title="此插件将在匹配正则表达式的 URL 上触发!">	[% plugin.url_regex %]</pre>
 	[% END %]
 	[% plugin.description %]
 	<br />
@@ -179,7 +179,7 @@
 			<tr>
 				<td colspan="2">
 					<input class='stdbtn' type='button' onclick="Server.triggerScript('[% plugin.namespace %]');"
-						value='Trigger Script' />
+						value='触发脚本' />
 				</td>
 			</tr>
 		</tbody>
@@ -190,7 +190,7 @@
 	<div class="collapsible-title" style="padding: 5px 0 0 5px">
 		<a>
 			<i class="fas fa-sliders-h fa-2x" style="margin-right: 4px" aria-hidden="true"></i>
-			<b style="vertical-align: super;">Plugin Settings</b>
+			<b style="vertical-align: super;">插件设置</b>
 		</a>
 	</div>
 	<div class="collapsible-body" style="padding:5px 0 0 0">

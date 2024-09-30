@@ -72,7 +72,7 @@ Upload.initializeAll = function () {
 
 // Handle updating the upload counters.
 Upload.updateUploadCounters = function () {
-    $("#progressCount").html(`🤔 Processing: ${processingArchives} 🙌 Completed: ${completedArchives} 👹 Failed: ${failedArchives}`);
+    $("#progressCount").html(`🤔 处理中: ${processingArchives} 🙌 已完成: ${completedArchives} 👹 失败: ${failedArchives}`);
 
     let icon;
     if (completedArchives === totalUploads) {

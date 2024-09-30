@@ -60,7 +60,7 @@ IndexTable.initializeAll = function () {
         order: [[0, "asc"]],
         dom: "<\"top\"ip>rt<\"bottom\"p><\"clear\">",
         language: {
-            info: "展示 _开始_ 到 _结束_ 的 _总量_ 古代 中文 平版印刷.",
+            info: "展示 _START_ 到 _END_ 共 _TOTAL_ 个档案.",
             infoEmpty: `<h1><br/><i class=\"fas fa-4x fa-toilet-paper-slash\"></i><br/><br/>没有档案展示 尝试 <a href="${new LRR.apiURL("/upload")}">上传一些</a>?</h1><br/>`,
             processing: "<div id=\"progress\" class=\"indeterminate\"\"><div class=\"bar-container\"><div class=\"bar\" style=\" width: 80%; \"></div></div></div>",
         },

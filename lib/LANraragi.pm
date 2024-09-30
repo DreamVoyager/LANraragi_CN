@@ -1,6 +1,7 @@
 package LANraragi;
 
 use local::lib;
+use utf8;
 
 use open ':std', ':encoding(UTF-8)';
 
@@ -81,8 +82,8 @@ sub startup {
     eval { $self->LRR_CONF->get_redis->ping(); };
     if ($@) {
         say "(╯・_>・）╯︵ ┻━┻";
-        say "It appears your Redis database is currently not running.";
-        say "The program will cease functioning now.";
+        say "您的 Redis 数据库当前似乎未运行.";
+        say "该程序现在将停止运行.";
         die;
     }
 
@@ -94,14 +95,14 @@ sub startup {
 
         last unless ($@);
 
-        say "Redis error encountered: $@";
-        say "Trying again in 2 seconds...";
+        say "遇到 Redis 错误: $@";
+        say "2 秒后重试...";
         sleep 2;
     }
 
     # Check old settings and migrate them if needed
     if ( $self->LRR_CONF->get_redis->keys('LRR_*') ) {
-        say "Migrating old settings to new format...";
+        say "将旧设置迁移到新格式...";
         migrate_old_settings($self);
     }
 
@@ -117,7 +118,7 @@ sub startup {
                 my ( $time, $level, @lines ) = @_;
 
                 open( my $fh, '>>', $logpath )
-                  or die "Could not open file '$logpath' $!";
+                  or die "无法打开文件 '$logpath' $!";
 
                 my $l1 = $lines[0] // "";
                 my $l2 = $lines[1] // "";
@@ -135,19 +136,19 @@ sub startup {
     my @plugins = get_plugins("metadata");
     foreach my $pluginfo (@plugins) {
         my $name = $pluginfo->{name};
-        $self->LRR_LOGGER->info( "Plugin Detected: " . $name );
+        $self->LRR_LOGGER->info( "检测到插件: " . $name );
     }
 
     @plugins = get_plugins("script");
     foreach my $pluginfo (@plugins) {
         my $name = $pluginfo->{name};
-        $self->LRR_LOGGER->info( "Script Detected: " . $name );
+        $self->LRR_LOGGER->info( "检测到脚本: " . $name );
     }
 
     @plugins = get_plugins("download");
     foreach my $pluginfo (@plugins) {
         my $name = $pluginfo->{name};
-        $self->LRR_LOGGER->info( "Downloader Detected: " . $name );
+        $self->LRR_LOGGER->info( "检测到下载: " . $name );
     }
 
     # Enable Minion capabilities in the app
@@ -159,13 +160,13 @@ sub startup {
     # If the password is non-empty, add the required delimiters
     if ($redispassword) { $redispassword = "x:" . $redispassword . "@"; }
 
-    say "Minion will use the Redis database at $miniondb";
+    say "Minion将使用Redis数据库 $miniondb";
     $self->plugin( 'Minion' => { Redis => "redis://$redispassword$miniondb" } );
-    $self->LRR_LOGGER->info("Successfully connected to Minion database.");
+    $self->LRR_LOGGER->info("已成功连接到 Minion 数据库.");
     $self->minion->missing_after(5);    # Clean up older workers after 5 seconds of unavailability
 
     LANraragi::Utils::Minion::add_tasks( $self->minion );
-    $self->LRR_LOGGER->debug("Registered tasks with Minion.");
+    $self->LRR_LOGGER->debug("使用 Minion 注册任务.");
 
     # Rebuild stat hashes
     # /!\ Enqueuing tasks must be done either before starting the worker, or once the IOLoop is started!
@@ -190,7 +191,7 @@ sub startup {
             my $prefix = $self->LRR_BASEURL;
             if ($prefix) {
                 if (!$prefix =~ m|^/[^"]*[^/"]$|) {
-                    say "Warning: configured URL prefix '$prefix' invalid, ignoring";
+                    say "警告: 配置的URL '$prefix' 前缀无效, 忽略";
                     # if prefix is invalid, then set it to empty for the cookie
                     $prefix = "";
                 }
@@ -205,7 +206,7 @@ sub startup {
     );
 
     LANraragi::Utils::Routing::apply_routes($self);
-    $self->LRR_LOGGER->info("Routing done! Ready to receive requests.");
+    $self->LRR_LOGGER->info("路由完成! 准备接收请求.");
 }
 
 sub shutdown_from_pid {
@@ -217,7 +218,7 @@ sub shutdown_from_pid {
         my $oldproc = ${ retrieve($file) };
         my $pid     = $oldproc->pid;
 
-        say "Killing process $pid from $file";
+        say "销毁进程 $pid 文件 $file";
         $oldproc->kill();
         unlink($file);
     }
@@ -242,7 +243,7 @@ sub migrate_old_settings {
     my @keys      = $redis->keys('LRR_*');
 
     foreach my $key (@keys) {
-        say "Migrating $key to database $config_db";
+        say "迁移 $key 到 $config_db 数据库";
         $redis->move( $key, $config_db );
     }
 

@@ -193,14 +193,14 @@ sub add_to_category {
     if ( $redis->exists($cat_id) ) {
 
         unless ( $redis->hget( $cat_id, "search" ) eq "" ) {
-            $err = "$cat_id is a favorite search/dynamic category, can't add archives to it.";
+            $err = "$cat_id 是一个搜索/动态的分类, 无法向其中添加档案.";
             $logger->error($err);
             $redis->quit;
             return ( 0, $err );
         }
 
         unless ( $redis->exists($arc_id) ) {
-            $err = "$arc_id does not exist in the database.";
+            $err = "$arc_id 在数据库中不存在.";
             $logger->error($err);
             $redis->quit;
             return ( 0, $err );
@@ -211,14 +211,14 @@ sub add_to_category {
         eval { @cat_archives = @{ decode_json($archives_from_redis) } };
 
         if ($@) {
-            $err = "Couldn't deserialize archives in DB for $cat_id! Redis returned the following junk data: $archives_from_redis";
+            $err = "无法反序列化数据库中的档案 $cat_id! Redis返回了以下数据: $archives_from_redis";
             $logger->error($err);
             $redis->quit;
             return ( 0, $err );
         }
 
         if ( "@cat_archives" =~ m/$arc_id/ ) {
-            $err = "$arc_id already present in category $cat_id, doing nothing.";
+            $err = "$arc_id 已存在于分类 $cat_id 中, 什么都没有执行.";
             $logger->warn($err);
             $redis->quit;
             return ( 1, $err );
@@ -232,7 +232,7 @@ sub add_to_category {
         return ( 1, $err );
     }
 
-    $err = "$cat_id doesn't exist in the database!";
+    $err = "$cat_id 在数据库中不存在!";
     $logger->warn($err);
     $redis->quit;
     return ( 0, $err );
@@ -252,7 +252,7 @@ sub remove_from_category {
     if ( $redis->exists($cat_id) ) {
 
         unless ( $redis->hget( $cat_id, "search" ) eq "" ) {
-            $err = "$cat_id is a favorite search, it doesn't contain archives.";
+            $err = "$cat_id 是最受欢迎的搜索, 它不包含档案.";
             $logger->error($err);
             $redis->quit;
             return ( 0, $err );
@@ -263,7 +263,7 @@ sub remove_from_category {
         eval { @cat_archives = @{ decode_json($archives_from_redis) } };
 
         if ($@) {
-            $err = "Couldn't deserialize archives in DB for $cat_id! Redis returned the following junk data: $archives_from_redis";
+            $err = "无法在 DB 中反序列化存档 $cat_id! Redis返回了以下数据: $archives_from_redis";
             $logger->error($err);
             $redis->quit;
             return ( 0, $err );
@@ -281,7 +281,7 @@ sub remove_from_category {
         return ( 1, $err );
     }
 
-    $err = "$cat_id doesn't exist in the database!";
+    $err = "$cat_id 在数据库中不存在!";
     $logger->warn($err);
     $redis->quit;
     return 0;
