@@ -1,5 +1,5 @@
 # DOCKER-VERSION 0.3.4
-FROM        --platform=linux/amd64 alpine:3.20
+FROM        alpine:3.20
 LABEL       git="https://github.com/DreamVoyager/LANraragi_CN"
 ARG INSTALL_PARAMETER
 
@@ -19,7 +19,7 @@ ENTRYPOINT ["//init"]
 # Check application health
 HEALTHCHECK --interval=1m --timeout=10s --retries=3 \
   CMD wget --quiet --tries=1 --no-check-certificate --spider -Y off \
-  http://localhost:3000 || exit 1
+  http://127.0.0.1:3000 || exit 1
 
 #Default mojo server port
 EXPOSE 3000
@@ -74,8 +74,9 @@ COPY /tools/build/docker/s6/s6-rc.d/ /etc/s6-overlay/s6-rc.d/
 COPY /tools/build/docker/s6/cont-init.d/01-lrr-setup /etc/s6-overlay/s6-rc.d/init/
 #COPY /tools/build/docker/s6/fix-attrs.d/ /etc/fix-attrs.d/
 
+RUN chmod +x /etc/s6-overlay/s6-rc.d/init/01-lrr-setup
+
 # Persistent volumes
 VOLUME [ "/root/lanraragi/content" ]
 VOLUME [ "/root/lanraragi/content/thumb" ]
 VOLUME [ "/root/lanraragi/database"]
-VOLUME [ "/root/lanraragi/lib/LANraragi/Plugin/Sideloaded" ]
