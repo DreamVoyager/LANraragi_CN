@@ -27,6 +27,7 @@
 #### 💬 与其他LANraragi用户交谈 [Discord](https://discord.gg/aRQxtbg) 或 [GitHub Discussions](https://github.com/Difegue/LANraragi/discussions)
 
 
+* Choose from 5 preinstalled responsive library styles, or add your own with CSS.  
 
 #### [📄 文档(英文)](https://sugoi.gitbook.io/lanraragi/v/dev) | [⏬ 下载(原版)](https://github.com/Difegue/LANraragi/releases/latest) | [🎞 演示](https://lrr.tvc-16.science/) | [🪟🌃 Window版本](https://nightly.link/Difegue/LANraragi/workflows/push-continous-delivery/dev) | [💵 赞助项目](https://ko-fi.com/T6T2UP5N)
 
