@@ -8,6 +8,8 @@
 
 有一些机翻如果不对请提出 [Issues](https://github.com/DreamVoyager/LANraragi_CN/issues)
 
+交流群: 212641253
+
 个人更新内容:
 
 - 修复了添加页面底部返回首页按钮的错误
